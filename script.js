@@ -32,3 +32,35 @@ function openTab(event, tabName) {
 document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelector('.tab-link').click();
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const textElement = document.querySelector(".description");
+    const originalText = textElement.textContent;
+    let index = originalText.length;
+    let deleting = true;
+
+    function deleteText() {
+        if (index >= 0) {
+            textElement.textContent = originalText.slice(0, index);
+            index--;
+            setTimeout(deleteText, 30); // Adjust the speed of deletion here (100ms per character)
+        } else {
+            deleting = false;
+            setTimeout(addText, 500); // Pause before starting to add text
+        }
+    }
+
+    function addText() {
+        if (index < originalText.length) {
+            textElement.textContent = originalText.slice(0, index + 1);
+            index++;
+            setTimeout(addText, 30); // Adjust the speed of adding text here (100ms per character)
+        } else {
+            deleting = true;
+            setTimeout(deleteText, 500); // Pause before starting to delete text again
+        }
+    }
+
+    deleteText();
+});
